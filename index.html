@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kayen Bakery — Website Toko Roti Online</title>
+  <meta name="description"
+    content="Website toko roti online Kayen Bakery. Lihat produk, harga, dan cara pemesanan lewat WhatsApp, transfer, e-wallet, atau COD." />
+  <link rel="icon" href="kayen.jpg" type="image/png">
+
+
+  <style>
+    :root {
+      --bg: #fff9f6;
+      --brand: #c76b39;
+      --muted: #5b3f33;
+      --card: #fff;
+      --accent: #f8e6dd;
+      --glass: rgba(255, 255, 255, 0.6);
+      --shadow: 0 10px 24px rgba(110, 80, 60, 0.06);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: Inter, system-ui, Arial, sans-serif;
+      background: linear-gradient(180deg, var(--bg), #fff);
+      color: var(--muted);
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 18px auto;
+      padding: 16px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(90deg, var(--accent), #fff);
+      padding: 12px 16px;
+      border-radius: 12px;
+      position: sticky;
+      top: 12px;
+      z-index: 1000;
+      box-shadow: var(--shadow);
+      transition: transform .2s ease;
+    }
+
+    header.scrolled {
+      transform: translateY(-2px);
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .logo {
+      width: 56px;
+      height: 56px;
+      min-width: 56px;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 18px rgba(199, 107, 57, 0.15);
+    }
+
+    .brand h2 {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    nav a {
+      margin-left: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 10px;
+      border-radius: 8px;
+      transition: background .12s, color .12s;
+    }
+
+    nav a:hover {
+      background: rgba(199, 107, 57, 0.08);
+      color: var(--brand);
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .toggle {
+      background: #fff;
+      padding: 6px;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 18px;
+      margin-top: 16px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 16px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    h1 {
+      color: var(--brand);
+      margin: 0 0 8px;
+      font-size: 1.8rem;
+    }
+
+    p.lead {
+      color: #6b4f3c;
+      margin-top: 6px;
+    }
+
+    .promo {
+      background: linear-gradient(90deg, #f4c7b0, #ffdcc9);
+      color: #5b341f;
+      padding: 14px;
+      border-radius: 14px;
+      text-align: center;
+      margin-top: 14px;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(199, 107, 57, 0.08);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .product {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #fff, #fff);
+      transition: transform .18s ease, box-shadow .18s ease;
+      opacity: 0;
+      transform: translateY(10px);
+      padding: 10px;
+    }
+
+    .product img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #f2e6df;
+    }
+
+    .product h4 {
+      margin: 0;
+      font-size: 16px;
+      color: #3e2b24;
+    }
+
+    .product .desc {
+      font-size: 13px;
+      color: #7a5b4b;
+      min-height: 36px;
+    }
+
+    .product .price {
+      font-weight: 800;
+      color: var(--brand);
+      margin-top: 6px;
+    }
+
+    .product .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .product:hover {
+      box-shadow: 0 18px 40px rgba(110, 80, 60, 0.12);
+      transform: translateY(-6px);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: var(--brand);
+      color: #fff;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform .12s ease, opacity .12s;
+    }
+
+    .btn.secondary {
+      background: #eee;
+      color: var(--muted);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      opacity: 0.95;
+    }
+
+    aside.cart .items {
+      max-height: 260px;
+      overflow: auto;
+      margin-top: 8px;
+    }
+
+    .steps {
+      background: linear-gradient(135deg, #fff, #fafafa);
+      border-left: 6px solid var(--brand);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .step-number {
+      background: var(--brand);
+      width: 36px;
+      height: 36px;
+      color: white;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      box-shadow: 0 6px 18px rgba(199, 107, 57, 0.12);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 12px;
+      align-items: start;
+      margin-top: 12px;
+    }
+
+    .contact-item {
+      background: #fff;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(110, 80, 60, 0.03);
+      line-height: 1.6;
+    }
+
+    .muted {
+      color: #8a6b56;
+    }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .testimonial {
+      padding: 14px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #fff, #fff7f3);
+      box-shadow: 0 8px 26px rgba(110, 80, 60, 0.06);
+      font-size: 13px;
+    }
+
+    .testimonial .who {
+      font-weight: 700;
+      margin-top: 8px;
+      color: #4b3126;
+    }
+
+    footer {
+      margin-top: 20px;
+      padding: 12px 0;
+      text-align: center;
+      color: #8a6b56;
+      font-size: 13px;
+    }
+
+    .loader-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .loader-box {
+      background: #fff;
+      padding: 18px 22px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .fade-in {
+      animation: fadeUp .45s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media(max-width:980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        top: 8px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .logo {
+        width: 46px;
+        height: 46px;
+      }
+
+      .brand h2 {
+        font-size: 15px;
+      }
+    }
+
+
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header id="siteHeader">
+      <div class="brand">
+        <div class="logo">
+          <img src="kayen.jpg" alt="Kayen Bakery">
+        </div>
+
+        <div>
+          <h2>Kayen Bakery</h2>
+          <div style="font-size:13px;color:#8a6b56">Roti & kue tanpa bahan pengawet tambahan • Pesan online</div>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#produk">Produk</a>
+        <a href="#cara">Cara Pemesanan</a>
+        <a href="#kontak">Kontak</a>
+        <div class="controls">
+          <button id="toggleTheme" class="toggle" title="Ganti tampilan">Mode</button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="card"
+        style="margin-top:16px; display:flex;gap:16px; align-items:center; justify-content:space-between;">
+        <div style="flex:1">
+          <h1>Lihat & Pesan Roti Favorit Anda</h1>
+          <p class="lead">
+            Roti dan kue dibuat setiap hari. Pilih produk, masukkan ke keranjang, dan checkout lewat WhatsApp.
+          </p>
+          <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+            <a href="#produk" class="btn">Lihat Produk</a>
+            <a href="#kontak" class="btn secondary">Kontak</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="promo">
+        🎉 Promo Hari Ini: Diskon 10% untuk pembelian 2 produk atau lebih! — Gunakan kode <strong>KAYEN12</strong>
+      </div>
+
+      <section class="hero">
+        <div>
+          <div class="card">
+            <section id="produk">
+              <h3>Produk Populer</h3>
+              <div class="product-grid" id="productGrid"></div>
+            </section>
+          </div>
+
+          <div class="card" style="margin-top:12px;">
+            <h3>Testimoni Pelanggan</h3>
+
+            <div class="testimonials">
+              <div class="testimonial">
+                <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                "rasanya jangan diragukan lagi, pasti Recomended."
+                <div class="who">— Gerel haganta</div>
+              </div>
+
+              <div class="testimonial">
+                <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                "Pelayanan cepat, pesan lewat WA langsung direspon. Recomended!" <div class="who">— Agus buntung</div>
+              </div>
+              <div class="testimonial">
+                <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                "Kue ulang tahunnya cakep banget, custom sesuai pesanan." <div class="who">— Rina agustina</div>
+              </div>
+              <div class="testimonial">
+                <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                "Bolunya flafy bangetttttt ." <div class="who">— Nacya cinaga</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:12px;">
+            <h3 id="cara">Cara Pemesanan</h3>
+            <div class="steps" aria-hidden="false">
+              <div class="step-item">
+                <div class="step-number">1</div>
+                <div><strong>Pilih Produk</strong>
+                  <div style="font-size:13px;color:#6b4f3c">Telusuri produk dan klik <em>Tambah ke Keranjang</em>.</div>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-number">2</div>
+                <div><strong>Cek Keranjang</strong>
+                  <div style="font-size:13px;color:#6b4f3c">Periksa jumlah dan harga barang.</div>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-number">3</div>
+                <div><strong>Checkout</strong>
+                  <div style="font-size:13px;color:#6b4f3c">Klik tombol Checkout dan isi data pengiriman.</div>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-number">4</div>
+                <div><strong>Pilih Pembayaran</strong>
+                  <div style="font-size:13px;color:#6b4f3c">Transfer bank, e-wallet, COD, kemudian konfirmasi melalui
+                    WA.</div>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-number">5</div>
+                <div><strong>Pesanan Terkirim</strong>
+                  <div style="font-size:13px;color:#6b4f3c">Pesanan akan dikonfirmasi via WA dan diproses admin.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="card cart">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Keranjang Anda</strong>
+            <div id="cartCount" class="muted">0 item</div>
+          </div>
+
+          <div class="items" id="cartList" style="margin-top:8px">Keranjang kosong</div>
+
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <button class="btn" style="flex:1" onclick="openCheckout()">Checkout</button>
+            <button class="btn secondary" style="flex:1" onclick="clearCart()">Kosongkan</button>
+          </div>
+
+          <div style="margin-top:12px;font-size:13px">
+            <strong>Total:</strong> <span id="cartTotal">Rp0</span>
+          </div>
+
+          <div style="margin-top:12px;">
+            <a href="https://wa.me/6283181819216" target="_blank" class="btn" style="width:100%;">Chat Pesanan /
+              Konsultasi</a>
+          </div>
+        </aside>
+      </section>
+
+      <div id="checkoutModal"
+        style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;padding:20px;z-index:1500">
+        <div style="background:#fff;padding:18px;border-radius:10px;max-width:720px;width:100%;">
+          <h3>Checkout — Ringkasan Pesanan</h3>
+
+          <div id="checkoutItems" style="max-height:240px;overflow:auto;margin-top:8px"></div>
+
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <input id="buyerName" placeholder="Nama" style="flex:1;padding:8px;border-radius:8px;border:1px solid #ddd">
+            <input id="buyerPhone" placeholder="No WA"
+              style="width:160px;padding:8px;border-radius:8px;border:1px solid #ddd">
+          </div>
+
+          <textarea id="buyerAddress" placeholder="Alamat (Opsional)" rows="2"
+            style="width:100%;padding:8px;margin-top:10px;border-radius:8px;border:1px solid #ddd"></textarea>
+
+          <div style="margin-top:10px">
+            <select id="paymentMethod" style="width:100%;padding:8px;border-radius:8px;border:1px solid #ddd">
+              <option value="wa">Pesan via WhatsApp</option>
+              <option value="bank">Transfer Bank</option>
+              <option value="ewallet">E-Wallet</option>
+              <option value="cod">COD</option>
+            </select>
+          </div>
+
+          <div style="margin-top:12px;text-align:right">
+            <button onclick="sendOrder()" class="btn">Kirim Pesanan</button>
+            <button onclick="closeCheckout()"
+              style="padding:8px 10px;border-radius:8px;border:none;background:#eee;margin-left:10px">Tutup</button>
+          </div>
+        </div>
+      </div>
+
+      <section id="kontak" class="card" style="margin-top:20px">
+        <h3>Kontak & Lokasi</h3>
+
+        <div class="contact-grid">
+          <div class="contact-item">
+            <strong>📍 Alamat Lengkap</strong>
+            <div style="margin-top:8px">Desa Tangkahan, Kec. Namorambe, Kab. Deli Serdang.</div>
+
+            <div style="margin-top:12px">
+              <strong>📞 Telepon / WhatsApp</strong><br>
+              <a href="https://wa.me/6283181819216" style="color:var(--brand);text-decoration:none">0831-8181-9216</a>
+            </div>
+
+            <div style="margin-top:12px">
+              <strong>⏰ Jam Operasional</strong><br>
+              Senin – Minggu: 08.00 – 19.00 WIB
+            </div>
+
+            <div style="margin-top:12px">
+              <a href="https://www.google.com/maps/search/?api=1&query=Desa+Tangkahan,+Namorambe,+Deli+Serdang"
+                target="_blank" class="btn" style="display:inline-block">Lihat di Google Maps</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <strong>Pesan Cepat melalui WhatsApp</strong>
+            <p style="margin-top:8px">Gunakan tombol checkout atau kirim pesan langsung ke nomor WA kami untuk
+              konfirmasi pemesanan.</p>
+
+            <div style="margin-top:8px">
+              <a href="https://wa.me/6283181819216?text=Halo%20Kayen%20Bakery%21%20Saya%20ingin%20membuat%20pesanan"
+                target="_blank" class="btn">Chat WhatsApp</a>
+            </div>
+
+            <hr style="margin:12px 0;border:none;border-top:1px dashed #eee">
+
+            <strong>Catatan</strong>
+            <p style="margin-top:8px;font-size:13px" class="muted">Pembayaran dapat dilakukan via transfer bank,
+              e-wallet, atau COD sesuai pilihan saat checkout.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © 2025 Kayen Bakery — Website e-commerce Kayen Bakery.
+    </footer>
+  </div>
+
+  <div id="loader" class="loader-overlay">
+    <div class="loader-box">
+      <div style="margin-bottom:8px">Menghubungkan ke WhatsApp...</div>
+      <div style="height:6px;background:#eee;border-radius:6px;overflow:hidden;width:220px;margin:0 auto">
+        <div id="bar"
+          style="height:6px;background:linear-gradient(90deg,var(--brand),#f4b28a);width:0%;transition:width 1.2s linear">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    const products = [
+      { id: 1, name: 'Bolu Pandan', price: 35000, desc: 'Roti lembut rasa pandan dengan taburan keju', img: 'https://tse2.mm.bing.net/th/id/OIP.w-FUZgtZSaFCAPSuVDgzFAHaE7?pid=Api&h=220&P=0' },
+      { id: 2, name: 'Bolu Pisang', price: 35000, desc: 'Bolu lembut, wangi dengan topping pisang', img: 'https://tse3.mm.bing.net/th/id/OIP.Q3w5sTl1dwrNOaXo7TPQtgHaD4?pid=Api&h=220&P=0' },
+      { id: 3, name: 'Kue Ulang Tahun', price: 150000, desc: 'Bolu lembut dan bentuknya dapat di-custom', img: 'https://tse4.mm.bing.net/th/id/OIP.dlbgk8YcFSoU47IEZA5u5QHaHa?pid=Api&h=220&P=0' },
+      { id: 4, name: 'Bolu Original', price: 30000, desc: 'Bolu dengan wangi susu', img: 'https://tse1.mm.bing.net/th/id/OIP.ug87rHL4YmgmHFgXcL6rfgHaHQ?pid=Api&h=220&P=0' },
+      { id: 5, name: 'Bika Ambon', price: 30000, desc: 'Bika ambon lembut dan berserat', img: 'https://tse4.mm.bing.net/th/id/OIP.uhGOFWtCdbdmVAZLqRIQEgHaE-?pid=Api&h=220&P=0' },
+      { id: 6, name: 'Brownies Lembut', price: 40000, desc: 'Brownies cokelat topping kacang', img: 'https://tse4.mm.bing.net/th/id/OIP.6YrNQgH4Dmq_q3RhWnyjFAHaE8?pid=Api&h=220&P=0' }
+    ];
+
+    const grid = document.getElementById("productGrid");
+    products.forEach((p, idx) => {
+      const el = document.createElement("div");
+      el.className = "product card";
+      el.innerHTML = `
+        <img src="${p.img}" alt="${p.name}">
+        <h4>${p.name}</h4>
+        <div class="desc">${p.desc}</div>
+        <div class="meta">
+          <div class="price">Rp${p.price.toLocaleString()}</div>
+          <div><button class="btn" onclick="addToCart(${p.id})">Tambah</button></div>
+        </div>
+      `;
+      grid.appendChild(el);
+      setTimeout(() => {
+        el.classList.add('fade-in');
+      }, 80 * idx);
+    });
+
+    let cart = [];
+
+    function addToCart(id) {
+      const prod = products.find(p => p.id == id);
+      const item = cart.find(c => c.id == id);
+
+      if (item) item.qty++;
+      else cart.push({ ...prod, qty: 1 });
+
+      renderCart();
+      showToast(`${prod.name} ditambahkan ke keranjang.`);
+    }
+
+    function renderCart() {
+      const list = document.getElementById("cartList");
+      const totalEl = document.getElementById("cartTotal");
+      const countEl = document.getElementById("cartCount");
+
+      if (cart.length === 0) {
+        list.innerHTML = "Keranjang kosong";
+        totalEl.innerText = "Rp0";
+        countEl.innerText = "0 item";
+        return;
+      }
+
+      list.innerHTML = cart.map(i => `
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #eee">
+      <div>
+        <strong>${i.name}</strong><br>
+        <small>Rp${i.price.toLocaleString()} × ${i.qty}</small>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <button onclick="changeQty(${i.id},1)" class="btn">+</button>
+        <button onclick="changeQty(${i.id},-1)" class="btn secondary">-</button>
+      </div>
+    </div>
+  `).join("");
+
+      const subtotal = cart.reduce((a, b) => a + (b.price * b.qty), 0);
+      const totalItem = cart.reduce((a, b) => a + b.qty, 0);
+      const potongan = totalItem >= 2 ? subtotal * 0.10 : 0;
+      const total = subtotal - potongan;
+
+      totalEl.innerText = potongan > 0
+        ? `Rp${total.toLocaleString()} (Hemat Rp${potongan.toLocaleString()})`
+        : `Rp${subtotal.toLocaleString()}`;
+
+      countEl.innerText = totalItem + " item";
+    }
+
+
+    function changeQty(id, delta) {
+      const item = cart.find(c => c.id == id);
+      if (!item) return;
+
+      item.qty += delta;
+      if (item.qty <= 0) cart = cart.filter(c => c.id != id);
+
+      renderCart();
+    }
+
+    function clearCart() {
+      if (confirm("Kosongkan keranjang?")) {
+        cart = [];
+        renderCart();
+      }
+    }
+
+    function openCheckout() {
+      if (cart.length === 0) { alert("Keranjang kosong!"); return; }
+
+      document.getElementById("checkoutModal").style.display = "flex";
+
+      const box = document.getElementById("checkoutItems");
+
+      box.innerHTML = cart.map(i => `
+        <div style="display:flex;justify-content:space-between;border-bottom:1px dashed #eee;padding:8px 0">
+          <div><strong>${i.name}</strong><br><small>Rp${i.price.toLocaleString()} × ${i.qty}</small></div>
+          <div>Rp${(i.price * i.qty).toLocaleString()}</div>
+        </div>
+      `).join("") + `
+        <div style="margin-top:10px;text-align:right;font-weight:bold">
+          Total: Rp${cart.reduce((a, b) => a + (b.price * b.qty), 0).toLocaleString()}
+        </div>
+      `;
+    }
+
+    function closeCheckout() {
+      document.getElementById("checkoutModal").style.display = "none";
+    }
+
+    function showToast(text) {
+      const t = document.createElement('div');
+      t.textContent = text;
+      Object.assign(t.style, {
+        position: 'fixed',
+        right: '18px',
+        bottom: '18px',
+        background: 'rgba(0,0,0,0.85)',
+        color: '#fff',
+        padding: '10px 12px',
+        borderRadius: '8px',
+        zIndex: 3000,
+        fontSize: '13px',
+        boxShadow: '0 8px 20px rgba(0,0,0,0.2)'
+      });
+      document.body.appendChild(t);
+      setTimeout(() => t.style.opacity = '0', 2200);
+      setTimeout(() => t.remove(), 2600);
+    }
+
+    function sendOrder() {
+      const name = document.getElementById("buyerName").value || "Pelanggan";
+      const phone = document.getElementById("buyerPhone").value.trim();
+      const address = document.getElementById("buyerAddress").value.trim() || "-";
+      const pay = document.getElementById("paymentMethod").value;
+
+      if (!/^[0-9]{10,15}$/.test(phone)) {
+        alert("Nomor WhatsApp tidak valid");
+        return;
+      }
+
+      const subtotal = cart.reduce((a, b) => a + (b.price * b.qty), 0);
+      const totalItem = cart.reduce((a, b) => a + b.qty, 0);
+      const potongan = totalItem >= 2 ? subtotal * 0.10 : 0;
+      const total = subtotal - potongan;
+
+      let payNote = "";
+      if (pay === "bank") payNote = "Transfer Bank BRI 1234 5678 9012 345 a.n Kayen Bakery";
+      if (pay === "ewallet") payNote = "OVO / GoPay / Dana (0831-8181-9216)";
+      if (pay === "cod") payNote = "COD";
+      if (pay === "wa") payNote = "Konfirmasi via WhatsApp";
+
+      const itemsText = cart
+        .map(i => `${i.name} x${i.qty} = Rp${(i.price * i.qty).toLocaleString()}`)
+        .join("%0A");
+
+      const message = `Halo Kayen Bakery!%0A
+Pesanan:%0A${itemsText}%0A%0A
+Subtotal: Rp${subtotal.toLocaleString()}%0A
+Diskon: Rp${potongan.toLocaleString()}%0A
+Total: Rp${total.toLocaleString()}%0A%0A
+Nama: ${name}%0A
+WA: ${phone}%0A
+Alamat: ${address}%0A
+Pembayaran: ${pay}%0A${payNote}`;
+
+      window.open(`https://wa.me/6283181819216?text=${message}`, "_blank");
+
+      cart = [];
+      renderCart();
+      closeCheckout();
+    }
+
+    const toggle = document.getElementById('toggleTheme');
+    let dark = false;
+    toggle.addEventListener('click', () => {
+      dark = !dark;
+      if (dark) {
+        document.documentElement.style.setProperty('--bg', '#1c1b1a');
+        document.documentElement.style.setProperty('--card', '#222221');
+        document.documentElement.style.setProperty('--muted', '#f0e6df');
+        document.documentElement.style.setProperty('--accent', '#2a2a28');
+        toggle.textContent = 'Light';
+      } else {
+        document.documentElement.style.setProperty('--bg', '#fff9f6');
+        document.documentElement.style.setProperty('--card', '#fff');
+        document.documentElement.style.setProperty('--muted', '#5b3f33');
+        document.documentElement.style.setProperty('--accent', '#f8e6dd');
+        toggle.textContent = 'Mode';
+      }
+    });
+
+    let diskon = 0;
+    function gunakanPromo() {
+      const kode = document.getElementById('kodePromo').value.trim().toUpperCase();
+      const totalItem = cart.reduce((a, b) => a + b.qty, 0);
+      if (kode === 'KAYEN12' && totalItem >= 2) {
+        diskon = 0.10;
+        document.getElementById('infoPromo').textContent = 'Promo KAYEN12 aktif! Diskon 10% diterapkan.';
+      } else if (kode === 'KAYEN12') {
+        document.getElementById('infoPromo').textContent = 'Minimal beli 2 produk untuk menggunakan promo.';
+        diskon = 0;
+      } else {
+        document.getElementById('infoPromo').textContent = 'Kode promo tidak valid.';
+        diskon = 0;
+      }
+      localStorage.setItem('promo', diskon);
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeCheckout();
+    });
+  </script>
+</body>
+
+</html>
